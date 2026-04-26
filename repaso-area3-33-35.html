@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Repaso 3.3 + 3.4 + 3.5 — Área 3 · EGEL Plus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f6f9;--card:#fff;--card2:#f0f2f6;--border:#dde1ea;
+  --text:#374151;--text2:#6b7280;--white:#111827;
+  --green:#16a34a;--green2:#15803d;--greenBg:rgba(22,163,74,.08);
+  --red:#dc2626;--red2:#b91c1c;--redBg:rgba(220,38,38,.08);
+  --blue:#2563eb;--blueBg:rgba(37,99,235,.08);
+  --amber:#d97706;--amberBg:rgba(217,119,6,.1);
+  --purple:#7c3aed;--purpleBg:rgba(124,58,237,.08);
+  --teal:#0d9488;--tealBg:rgba(13,148,136,.08);
+  --orange:#ea580c;--orangeBg:rgba(234,88,12,.08);
+  --pink:#db2777;--pinkBg:rgba(219,39,119,.08);
+  --nav-bg:rgba(244,246,249,.97);
+  --opt-hover:#f8fffe;--scrollbar:#c9d0dc;--track:#e5e7eb;
+  --row-hover:rgba(0,0,0,.02);
+}
+body.dark{
+  --bg:#0a0c10;--card:#12151e;--card2:#181c28;--border:#1e2436;
+  --text:#c8cdd8;--text2:#7c8494;--white:#e8ecf4;
+  --green:#22c55e;--green2:#15803d;--greenBg:rgba(34,197,94,.08);
+  --red:#ef4444;--red2:#b91c1c;--redBg:rgba(239,68,68,.08);
+  --blue:#3b82f6;--blueBg:rgba(59,130,246,.08);
+  --amber:#f59e0b;--amberBg:rgba(245,158,11,.08);
+  --purple:#a78bfa;--purpleBg:rgba(167,139,250,.08);
+  --teal:#14b8a6;--tealBg:rgba(20,184,166,.08);
+  --orange:#f97316;--orangeBg:rgba(249,115,22,.08);
+  --pink:#ec4899;--pinkBg:rgba(236,72,153,.08);
+  --nav-bg:rgba(10,12,16,.95);
+  --opt-hover:#1a1f30;--scrollbar:#2a3040;--track:#1a1f2e;
+  --row-hover:rgba(255,255,255,.015);
+}
+body.dark .hdr{background:linear-gradient(135deg,#111422,#141e2e 50%,#121a2a);}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh}
+::selection{background:var(--teal);color:#fff}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--scrollbar);border-radius:3px}
+.topnav{background:var(--nav-bg);border-bottom:1px solid var(--border);padding:11px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-brand{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--teal);text-transform:uppercase}
+.nav-tabs{display:flex;gap:4px}
+.ntab{padding:7px 14px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s}
+.ntab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.ntab:hover:not(.active){background:var(--card2);border-color:var(--border);color:var(--white)}
+.shell{max-width:920px;margin:0 auto;padding:20px 14px 80px}
+.hdr{background:linear-gradient(135deg,#e8f4f2,#dff0f8 50%,#e4eeff);border:1px solid var(--border);border-radius:16px;padding:26px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(13,148,136,.07),transparent 70%);pointer-events:none}
+.hdr .tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;color:var(--text2);margin-bottom:6px;text-transform:uppercase}
+.hdr h1{font-size:20px;font-weight:700;color:var(--white);margin-bottom:4px}
+.hdr p{font-size:12.5px;color:var(--text2)}
+.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page{animation:fadeUp .3s ease both}
+.btn{padding:10px 20px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--teal);color:#fff}.btn-primary:hover{background:#0f766e}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text2)}.btn-ghost:hover{border-color:var(--teal);color:var(--white)}
+.comp-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.ctab{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s}
+.ctab.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+.ctab:hover:not(.active){border-color:var(--teal);color:var(--white)}
+.comp-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;animation:fadeUp .3s ease both}
+.comp-wrap table{width:100%;border-collapse:collapse}
+.comp-wrap th{background:var(--card2);padding:10px 14px;text-align:left;font-size:12px;font-weight:600;color:var(--white);border-bottom:1px solid var(--border)}
+.comp-wrap th:first-child{width:20%;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text2)}
+.comp-wrap td{padding:9px 14px;font-size:12.5px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.6}
+.comp-wrap tr:last-child td{border-bottom:none}
+.comp-wrap td:first-child{font-weight:600;color:var(--teal);font-size:12px}
+.comp-wrap tr:hover td{background:var(--row-hover)}
+.flash-wrap{max-width:600px;margin:0 auto}
+.flash-progress{display:flex;gap:3px;margin-bottom:16px;flex-wrap:wrap}
+.fp-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .3s}
+.fp-dot.done{background:var(--teal)}.fp-dot.cur{background:var(--amber)}
+.flash-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;text-align:center}
+.flash-card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.flash-card::after{content:'TAP para voltear';position:absolute;bottom:12px;right:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1px}
+.flash-cat{font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:4px;margin-bottom:8px;display:inline-block}
+.flash-emoji{font-size:30px;margin-bottom:10px}
+.flash-q{font-size:15px;font-weight:600;color:var(--white);line-height:1.55}
+.flash-ans .ans-title{font-size:15px;font-weight:700;color:var(--teal);margin-bottom:8px}
+.flash-ans .ans-body{font-size:12.5px;color:var(--text);line-height:1.7}
+.flash-ans .ans-key{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);margin-top:8px}
+.flash-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.flash-ctr{font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)}
+.flash-filter{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.ff-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:11.5px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.ff-btn.active{border-color:var(--teal);color:var(--teal);background:var(--tealBg)}
+.pbar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.pbar .track{flex:1;height:6px;background:var(--track);border-radius:3px;overflow:hidden}
+.pbar .fill{height:100%;background:linear-gradient(90deg,var(--teal),#2563eb);border-radius:3px;transition:width .4s ease}
+.pbar .label{font-family:'DM Mono',monospace;font-size:12px;color:var(--text2);white-space:nowrap}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:14px;animation:fadeUp .35s ease both}
+.qnum{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;color:var(--teal);margin-bottom:8px}
+.qtxt{font-size:14px;color:var(--white);font-weight:500;line-height:1.75;margin-bottom:8px;white-space:pre-line}
+.qcode{background:#1e2433;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-family:'DM Mono',monospace;font-size:12px;color:#c8d3e8;line-height:1.7;overflow-x:auto;white-space:pre}
+.qtag{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 8px;border-radius:5px;margin-bottom:12px;text-transform:uppercase}
+.qtag.git{background:var(--orangeBg);color:#c2410c}
+.qtag.test{background:var(--greenBg);color:#15803d}
+.qtag.cicd{background:var(--tealBg);color:#0f766e}
+.qtag.docker{background:var(--pinkBg);color:#be185d}
+.qtag.build{background:var(--purpleBg);color:#6d28d9}
+.qtag.sql{background:var(--blueBg);color:#1d4ed8}
+.qtag.acid{background:var(--purpleBg);color:#6d28d9}
+.qtag.nosql{background:var(--tealBg);color:#0f766e}
+.qtag.dist{background:var(--pinkBg);color:#be185d}
+.qtag.tipos{background:var(--orangeBg);color:#c2410c}
+.qtag.web{background:var(--blueBg);color:#1d4ed8}
+.qtag.mob{background:var(--tealBg);color:#0f766e}
+.qtag.emb{background:var(--orangeBg);color:#c2410c}
+.qtag.sel{background:var(--pinkBg);color:#be185d}
+.opts{display:grid;gap:8px}
+.opt{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:13px;color:var(--text);cursor:pointer;transition:all .2s;text-align:left;font-family:'DM Sans',sans-serif;line-height:1.6;display:flex;align-items:flex-start;gap:10px}
+.opt:hover:not(.locked){border-color:var(--teal);background:var(--opt-hover)}
+.opt .letter{font-family:'DM Mono',monospace;font-weight:600;font-size:13px;color:var(--text2);min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(128,128,128,.1);flex-shrink:0;margin-top:1px}
+.opt.correct{border-color:var(--green2);background:var(--greenBg)}.opt.correct .letter{background:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red2);background:var(--redBg)}.opt.wrong .letter{background:var(--red);color:#fff}
+.opt.locked{cursor:default;opacity:.7}.opt.correct.locked{opacity:1}.opt.dimmed{opacity:.45}
+.fb{margin-top:14px;padding:16px;border-radius:10px;animation:fadeUp .3s ease both;font-size:13px;line-height:1.75}
+.fb.ok{background:var(--greenBg);border:1px solid rgba(22,163,74,.2)}.fb.ok .fb-tag{color:var(--green)}
+.fb.no{background:var(--redBg);border:1px solid rgba(220,38,38,.2)}.fb.no .fb-tag{color:var(--red)}
+.fb-tag{font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-family:'DM Mono',monospace}
+.fb-text{color:var(--text)}
+.fb-trap{margin-top:10px;padding:10px 12px;background:var(--amberBg);border:1px solid rgba(217,119,6,.2);border-radius:8px}
+.fb-trap .trap-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--amber);font-weight:600;margin-bottom:4px}
+.fb-trap p{font-size:12px;color:var(--text);line-height:1.6}
+.nav{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.results{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;animation:fadeUp .4s ease both}
+.results h2{font-size:20px;color:var(--white);margin-bottom:16px}
+.score-big{font-family:'DM Mono',monospace;font-size:48px;font-weight:700;margin-bottom:4px}
+.score-ok{color:var(--green)}.score-mid{color:var(--amber)}.score-bad{color:var(--red)}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+.seg-card{border-radius:10px;padding:14px;text-align:center}
+.cat-scores{display:grid;gap:6px;margin:16px 0}
+.cat-row{display:flex;align-items:center;gap:10px}
+.cat-row .cat-name{min-width:190px;color:var(--text2);font-size:12px}
+.cat-row .cat-track{flex:1;height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden}
+.cat-row .cat-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.cat-row .cat-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);min-width:36px;text-align:right}
+.qdots{display:flex;gap:3px;flex-wrap:wrap;margin-top:14px}
+.qdot{width:24px;height:24px;border-radius:5px;font-size:10px;font-family:'DM Mono',monospace;cursor:pointer;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card2);color:var(--text2);transition:all .2s}
+.seg-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.seg-33{background:var(--orangeBg);color:#c2410c}
+.seg-34{background:var(--blueBg);color:#1d4ed8}
+.seg-35{background:var(--tealBg);color:#0f766e}
+</style>
+</head>
+<body>
+<div class="topnav">
+  <span class="nav-brand">EGEL · Área 3 · Repaso 3.3 + 3.4 + 3.5</span>
+  <div style="display:flex;align-items:center;gap:6px">
+    <div class="nav-tabs">
+      <button class="ntab active" onclick="showPage('compara')">⚖️ Comparativas</button>
+      <button class="ntab" onclick="showPage('flash')">🃏 Flashcards</button>
+      <button class="ntab" onclick="showPage('quiz')">📝 Quiz</button>
+    </div>
+    <button id="theme-btn" onclick="toggleTheme()" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;font-size:15px;line-height:1">🌙</button>
+  </div>
+</div>
+<div class="shell">
+  <div class="hdr">
+    <div class="tag">EGEL Plus · Área 3 · Repaso Parte 2</div>
+    <h1>Entornos · Gestión de Datos · Plataformas</h1>
+    <p>Subáreas 3.3, 3.4 y 3.5 · 42 preguntas · Comparativas cruzadas · Flashcards integradas</p>
+  </div>
+  <div id="page-compara" class="page"></div>
+  <div id="page-flash" class="hidden page"></div>
+  <div id="page-quiz" class="hidden page"></div>
+</div>
+<script>
+const COMPARA=[
+  {id:'git-flujo',label:'Git — flujos y operaciones',
+   cols:['Operación','Qué hace','Cuándo usarlo'],
+   rows:[
+     ['git add + commit','Captura un snapshot del estado actual en el historial local','Al completar una unidad lógica de trabajo'],
+     ['git push / pull','Sincroniza commits locales con el remoto y viceversa','Al inicio del día y antes de compartir trabajo'],
+     ['git merge','Integra dos ramas preservando el historial completo','Para unir feature branches a develop/main'],
+     ['git rebase -i','Reescribe el historial de commits de una rama local','Para limpiar mensajes antes de abrir un PR'],
+     ['Pull Request','Propone un merge + solicita code review al equipo','Antes de integrar cualquier feature al branch principal'],
+     ['git stash','Guarda cambios sin commitear temporalmente','Al cambiar de rama con trabajo en progreso'],
+   ]},
+  {id:'testing-piramide',label:'Pirámide de pruebas',
+   cols:['Nivel','Qué prueba','Velocidad','Fragilidad','Herramientas'],
+   rows:[
+     ['Unitaria','Una función o clase en aislamiento','ms','Muy baja','JUnit, pytest, Jest'],
+     ['Integración','Interacción entre módulos o con BD real','Segundos','Media','Testcontainers, Spring Test'],
+     ['E2E','Flujo completo del usuario en el sistema','Minutos','Alta','Selenium, Cypress, Playwright'],
+   ]},
+  {id:'ci-cd-fases',label:'CI/CD — pipeline y modalidades',
+   cols:['Etapa','Qué ocurre','Falla si...'],
+   rows:[
+     ['Build','Compilar / empaquetar el código fuente','El código no compila o hay errores de dependencias'],
+     ['Test unitario','Ejecutar suite de pruebas unitarias','Alguna prueba falla'],
+     ['Análisis estático','Linter y cobertura de código','Viola reglas de estilo o cobertura mínima'],
+     ['Deploy staging','Desplegar a entorno de preproducción','El contenedor no arranca o falla health check'],
+     ['Test E2E','Pruebas sobre el entorno de staging','Un flujo crítico del usuario falla'],
+     ['Deploy prod','Desplegar a producción (manual o auto)','Solo en Continuous Deployment'],
+   ]},
+  {id:'docker-conceptos',label:'Docker — imagen vs contenedor vs VM',
+   cols:['Imagen','Contenedor','VM'],
+   rows:[
+     ['Naturaleza','Plantilla inmutable de solo lectura','Instancia en ejecución de una imagen','SO completo virtualizado'],
+     ['Tamaño','MBs','MBs + proceso en ejecución','GBs (incluye SO completo)'],
+     ['Inicio','N/A — se construye con docker build','Segundos','Minutos'],
+     ['Aislamiento','N/A','Namespaces + cgroups del kernel','Hypervisor — nivel hardware'],
+     ['Portabilidad','Alta — cualquier host con Docker','Alta','Media — requiere hypervisor compatible'],
+     ['Mutable','No — inmutable por diseño','Sí — el proceso puede escribir en capas temporales','Sí — disco virtual modificable'],
+   ]},
+  {id:'sql-clausulas',label:'SQL — orden de ejecución y cláusulas',
+   cols:['Cláusula','Orden de ejecución','Puede usar agregaciones','Filtra'],
+   rows:[
+     ['FROM / JOIN','1°','No','Determina el conjunto base de filas'],
+     ['WHERE','2°','No — ejecuta antes del GROUP BY','Filas individuales antes de agrupar'],
+     ['GROUP BY','3°','No — agrupa, no filtra','Agrupa filas por valor de columna'],
+     ['HAVING','4°','Sí — ejecuta después del agrupamiento','Grupos resultantes del GROUP BY'],
+     ['SELECT','5°','Sí — proyecta los resultados','No filtra — selecciona columnas'],
+     ['ORDER BY / LIMIT','6°','Sí — sobre el resultado final','No filtra — ordena y limita'],
+   ]},
+  {id:'nosql-cap',label:'NoSQL — tipos y Teorema CAP',
+   cols:['Tipo','Modelo','Caso de uso principal','CAP'],
+   rows:[
+     ['Documento','JSON/BSON por documento','Perfiles, catálogos, APIs REST','CP (MongoDB)'],
+     ['Clave-Valor','par key:value opaco','Caché de sesiones, configuración','AP (Redis en modo cluster)'],
+     ['Columnar','Familias de columnas','Analytics masivo, IoT, series de tiempo','AP (Cassandra)'],
+     ['Grafo','Nodos y aristas con propiedades','Redes sociales, detección de fraude','CP (Neo4j)'],
+     ['RDBMS','Tablas con esquema fijo','Sistemas financieros, ERP, CRM','CA (centralizado, sin P)'],
+   ]},
+  {id:'fragmentacion-replicacion',label:'Fragmentación vs Replicación',
+   cols:['Fragmentación horizontal','Fragmentación vertical','Replicación'],
+   rows:[
+     ['Divide','Filas — cada nodo tiene un subconjunto','Columnas — cada nodo tiene un subconjunto','Datos completos — cada nodo tiene la misma copia'],
+     ['Escala','Almacenamiento y escritura','Columnas frecuentes vs archivos pesados','Lecturas y disponibilidad'],
+     ['Problema','Queries cross-shard costosas','Reconstruir registros completos requiere JOIN distribuido','Lag de replicación — consistencia eventual'],
+     ['Ejemplo','Pedidos 1-100k en nodo A, 100k+ en nodo B','Metadatos en SSD rápido, BLOBs en almacenamiento barato','Maestro recibe escrituras, 3 réplicas sirven lecturas'],
+   ]},
+  {id:'plataformas-criterios',label:'Selección de plataforma — criterios cruzados',
+   cols:['Criterio','Web','Escritorio','Móvil nativo','Embebido'],
+   rows:[
+     ['Instalación','No requiere','Requiere instalador','Requiere tienda de apps','Firmware — requiere flash físico'],
+     ['Actualización','Instantánea en servidor','Descarga e instalación manual','Aprobación de tienda','Reprogramación del dispositivo'],
+     ['Acceso hardware','Limitado (sandbox)','Completo','Completo vía SDK','Directo a registros de hardware'],
+     ['Offline','Con PWA parcialmente','Sí por diseño','Sí por diseño','Sí — sin OS que lo impida'],
+     ['Recursos requeridos','Navegador + red','RAM y CPU del SO','RAM y CPU del móvil','KB de RAM y flash'],
+     ['Lenguajes típicos','JS/TS, PHP, Python','C++, C#, Java, Swift','Kotlin, Swift, Dart, JS','C, C++, Assembly'],
+   ]},
+  {id:'cpp-js-php',label:'C++ vs JavaScript vs PHP — comparativa EGEL',
+   cols:['C++','JavaScript','PHP'],
+   rows:[
+     ['Ejecución','Compilado a código nativo','Interpretado + JIT (V8)','Interpretado en servidor HTTP'],
+     ['Tipado','Estático fuerte','Dinámico débil','Dinámico débil'],
+     ['Memoria','Manual — new/delete, sin GC','Automática — GC','Automática — GC'],
+     ['Rendimiento','Máximo — código nativo sin overhead','Bueno con JIT — menor que C++','Moderado — sin JIT nativo'],
+     ['Plataforma','Escritorio, embebido, videojuegos','Web frontend (obligatorio) + Node backend + React Native','Web backend únicamente'],
+     ['Fortaleza clave','Tiempo real, hardware, sin GC','Ecosistema npm enorme, fullstack JS','Hosting económico, WordPress, Laravel'],
+   ]},
+];
+
+const FLASH=[
+  {cat:'3.3 Entornos',color:'#c2410c',bg:'rgba(234,88,12,.1)',emoji:'🌿',
+   q:'Un desarrollador tiene 8 commits locales con mensajes "fix", "wip", "intento 2"... antes de abrir el PR. ¿Qué comando limpia el historial y qué riesgo existe si ya hizo push?',
+   a:'git rebase -i HEAD~8 para squash/editar commits. Riesgo: si ya hizo push, reescribe SHAs y causa conflictos a quienes tengan esos commits',
+   body:'git rebase -i (interactive) permite combinar (squash), reordenar o editar commits. Es seguro solo en ramas locales no compartidas. Si ya hizo push a una rama compartida, el force push reescribe el historial remoto y los compañeros que tengan esos commits verán divergencia.',
+   key:'rebase -i = limpiar historial local. Push compartido = NUNCA rebasear'},
+  {cat:'3.3 Entornos',color:'#c2410c',bg:'rgba(234,88,12,.1)',emoji:'🧪',
+   q:'¿Por qué una prueba que llama a una API real de terceros NO es una prueba unitaria aunque esté en el archivo de tests unitarios?',
+   a:'Porque viola el aislamiento: depende de infraestructura externa, es no determinista y lenta — es una prueba de integración',
+   body:'Una prueba unitaria prueba una unidad de código en completo aislamiento. Si llama a una API real: puede fallar por problemas de red, por cambios en la API externa, o porque el servicio está caído — causas ajenas al código bajo prueba. Esto la hace no determinista. La solución es mockear la llamada HTTP.',
+   key:'Unitaria = aislada + determinista + sin red/BD real'},
+  {cat:'3.3 Entornos',color:'#c2410c',bg:'rgba(234,88,12,.1)',emoji:'🐳',
+   q:'¿Cuál es la diferencia técnica entre COPY y ADD en un Dockerfile, y por qué se prefiere COPY?',
+   a:'COPY solo copia archivos/directorios. ADD además puede descomprimir tarballs y descargar URLs remotas. Se prefiere COPY por ser explícita y predecible',
+   body:'ADD tiene comportamiento implícito: si la fuente es un .tar.gz lo descomprime automáticamente, si es una URL descarga el archivo. Esto puede causar comportamiento inesperado. La práctica recomendada es usar COPY para copiar archivos locales (comportamiento claro) y solo usar ADD cuando se necesita específicamente la descompresión.',
+   key:'COPY = solo archivos locales. ADD = más poderes pero menos predecible'},
+  {cat:'3.3 Entornos',color:'#c2410c',bg:'rgba(234,88,12,.1)',emoji:'🔒',
+   q:'¿Qué es un pre-commit hook y cuándo falla si el linter detecta un error?',
+   a:'Script que se ejecuta automáticamente antes de permitir el commit. Si falla, el commit se cancela — el desarrollador debe corregir antes de poder commitear',
+   body:'Los hooks de Git son scripts que se ejecutan en eventos del ciclo de vida de Git. Pre-commit corre antes de crear el commit. Si el linter retorna código de error (no cero), Git cancela el commit. Esto garantiza que código con errores de estilo nunca entre al historial, sin depender de la disciplina del desarrollador.',
+   key:'Pre-commit hook = gate automático antes del commit. Falla = commit cancelado'},
+  {cat:'3.4 Gestión',color:'#1d4ed8',bg:'rgba(37,99,235,.1)',emoji:'🔗',
+   q:'¿Por qué COUNT(*) y COUNT(columna) producen resultados diferentes cuando hay NULLs?',
+   a:'COUNT(*) cuenta todas las filas incluyendo NULLs. COUNT(columna) ignora los NULLs de esa columna',
+   body:'En un LEFT JOIN, las filas sin coincidencia tienen NULL en las columnas de la tabla derecha. COUNT(*) = 1 para esas filas. COUNT(tabla_derecha.id) = 0 porque ignora NULLs. Este es el comportamiento que permite mostrar "0 pedidos" para clientes sin pedidos usando LEFT JOIN + COUNT(pedidos.id) en lugar de COUNT(*).',
+   key:'COUNT(*) incluye NULLs. COUNT(col) los ignora. Crucial en LEFT JOIN'},
+  {cat:'3.4 Gestión',color:'#1d4ed8',bg:'rgba(37,99,235,.1)',emoji:'⚗️',
+   q:'Una transferencia bancaria hace COMMIT pero el sistema falla 10ms después. ¿Qué propiedad ACID garantiza que los datos no se pierden y cómo lo implementa técnicamente?',
+   a:'Durabilidad — el motor escribe el commit en el Write-Ahead Log (WAL) en disco antes de confirmar al cliente',
+   body:'El WAL (Write-Ahead Log) registra la transacción en un archivo de log persistente antes de confirmar el COMMIT. Si el sistema falla después del COMMIT, al reiniciar el motor lee el WAL y recupera los cambios. La durabilidad garantiza que un COMMIT exitoso sobrevive a fallos de sistema, memoria o poder.',
+   key:'Durabilidad = WAL en disco antes de confirmar. COMMIT exitoso = datos seguros'},
+  {cat:'3.4 Gestión',color:'#1d4ed8',bg:'rgba(37,99,235,.1)',emoji:'📊',
+   q:'¿Cuándo una base de datos NoSQL de documentos es PEOR elección que SQL para un caso de uso específico?',
+   a:'Cuando los datos tienen relaciones complejas entre múltiples entidades que requieren JOINs frecuentes — NoSQL documento no tiene JOINs eficientes',
+   body:'MongoDB y similares no tienen JOINs nativos eficientes (existen pero son costosos). Si tu modelo de datos tiene pedidos que referencian clientes que referencian direcciones que referencian países, y necesitas consultar esas relaciones frecuentemente, el modelo relacional con JOINs es más eficiente. NoSQL brilla cuando los datos se acceden principalmente por un documento completo.',
+   key:'NoSQL documento = malo para JOINs frecuentes entre múltiples entidades'},
+  {cat:'3.4 Gestión',color:'#1d4ed8',bg:'rgba(37,99,235,.1)',emoji:'🌐',
+   q:'Una app muestra el contador de likes de un post con 200ms de retraso tras la actualización. ¿Es un bug o una característica del diseño distribuido?',
+   a:'Característica: consistencia eventual. El sistema sacrifica consistencia inmediata a cambio de disponibilidad y escalabilidad horizontal',
+   body:'En un sistema con replicación, el nodo maestro recibe la escritura y la propaga a las réplicas asíncronamente. Durante esos milisegundos, las lecturas de réplicas ven el valor anterior. Para likes en redes sociales esto es aceptable. El sistema es correcto — solo eventualmente consistente. El bug sería si nunca se sincronizara.',
+   key:'Consistencia eventual = lag temporal aceptable para alta disponibilidad'},
+  {cat:'3.5 Plataformas',color:'#0f766e',bg:'rgba(13,148,136,.1)',emoji:'⚛️',
+   q:'¿Por qué TypeScript es especialmente valioso en proyectos Angular en comparación con JavaScript puro?',
+   a:'Angular fue diseñado con TypeScript — los decoradores (@Component, @Injectable), la inyección de dependencias y el sistema de módulos asumen tipado estático en compilación',
+   body:'Angular usa decoradores (@Component, @NgModule, @Injectable) que son una característica de TypeScript. La inyección de dependencias de Angular funciona con los tipos de TypeScript para resolver dependencias automáticamente. En JavaScript puro, perderías toda esta integración y las herramientas de refactoring no funcionarían correctamente.',
+   key:'Angular = diseñado con TypeScript. Decoradores + DI dependen del sistema de tipos'},
+  {cat:'3.5 Plataformas',color:'#0f766e',bg:'rgba(13,148,136,.1)',emoji:'📱',
+   q:'¿Cuál es la diferencia fundamental de renderizado entre React Native e Ionic?',
+   a:'React Native mapea componentes a widgets nativos del SO. Ionic renderiza en una WebView — básicamente una app web dentro de un contenedor móvil',
+   body:'React Native: cuando usas <View> o <Text>, se convierten en UIView/TextView nativos de iOS/Android. La UI es nativa. Ionic: el HTML/CSS/JS se ejecuta en un navegador embebido (WebView). La UI es web. Resultado: React Native tiene mejor rendimiento y apariencia nativa. Ionic es más fácil para equipos web puros pero con compromiso de rendimiento.',
+   key:'React Native = widgets nativos reales. Ionic = WebView = app web en contenedor'},
+  {cat:'3.5 Plataformas',color:'#0f766e',bg:'rgba(13,148,136,.1)',emoji:'⚡',
+   q:'¿Por qué un microcontrolador con 32KB de RAM no puede ejecutar Python estándar aunque Python sea más fácil de programar?',
+   a:'El intérprete CPython requiere varios MB de RAM solo para arrancar — más que la RAM total disponible en el microcontrolador',
+   body:'CPython necesita ~4-8MB para cargar el intérprete, las librerías estándar y la pila del programa. Con 32KB de RAM total, es imposible. MicroPython existe como alternativa reducida para microcontroladores, pero tiene funcionalidad muy limitada. Para 32KB, C es el único lenguaje práctico con control total del uso de memoria.',
+   key:'CPython requiere MB de RAM. 32KB = solo C o Assembly práctico'},
+  {cat:'3.5 Plataformas',color:'#0f766e',bg:'rgba(13,148,136,.1)',emoji:'🌍',
+   q:'¿Qué ventaja técnica tiene PHP sobre Node.js para un hosting compartido de bajo costo, y cuál es la limitación principal de PHP en ese mismo contexto?',
+   a:'PHP: sin proceso persistente — el servidor web lo invoca por petición y termina, sin gestión de memoria entre peticiones. Limitación: sin proceso persistente no puede mantener estado en memoria entre requests',
+   body:'PHP es stateless por diseño: cada petición crea un proceso nuevo, ejecuta el script y termina. Esto lo hace ideal para hosting compartido donde muchos sitios comparten el mismo servidor. Node.js mantiene un proceso permanente (más complejo de gestionar). La limitación de PHP: sin estado en memoria entre peticiones, todo el estado debe ir a BD o caché externo.',
+   key:'PHP = sin proceso persistente = ideal hosting compartido pero sin estado en memoria'},
+];
+
+const QUESTIONS=[
+  // ===== BLOQUE 3.3 ENTORNOS (14 preguntas) =====
+  {cat:'git',catL:'Git',seg:'3.3',
+   intro:'Un equipo tiene esta política: toda feature branch debe ser aprobada por code review antes del merge a main. Un desarrollador termina su trabajo y ejecuta directamente:',
+   code:`git checkout main
+git merge feature/nueva-api
+git push origin main`,
+   q:'¿Qué práctica de trabajo en equipo viola este flujo y qué consecuencia puede tener?',
+   opts:['Salta el proceso de Pull Request y code review — código no revisado llega a main','Usa merge en lugar de rebase — el historial de main queda con commits de merge','No ejecuta git pull antes del merge — puede generar conflictos con cambios remotos','Hace push directamente sin CI — el pipeline no puede ejecutarse antes del merge'],
+   ans:0,
+   exp:'El desarrollador saltó el Pull Request — el mecanismo que activa el code review. Sin PR, nadie revisó el código antes de que llegara a main. Además, en muchos equipos el push directo a main está protegido por branch protection rules precisamente para evitar esto. El código puede contener bugs, vulnerabilidades o violar convenciones que una revisión hubiera detectado.',
+   trap:'El merge en sí no es el problema — merge a main es correcto. El problema es SALTARSE el PR que activa el code review obligatorio. El push sin CI también es un problema secundario, pero la violación principal es la ausencia de code review.'},
+
+  {cat:'test',catL:'Testing',seg:'3.3',
+   intro:'Un equipo tiene esta distribución de pruebas:',
+   code:`Suite completo: 2 horas de ejecución
+- Pruebas E2E (Selenium): 380 pruebas → 1h 45min
+- Pruebas de integración: 45 pruebas → 12min
+- Pruebas unitarias: 25 pruebas → 3min`,
+   q:'¿Cuál es el problema arquitectural del suite y qué implica para el proceso de desarrollo?',
+   opts:['El suite es demasiado pequeño — 450 pruebas totales no son suficientes para producción','Falta cobertura de integración — 45 pruebas de integración son insuficientes para el sistema','Las pruebas unitarias son pocas pero ese nivel no escala bien para sistemas grandes','Pirámide invertida — las E2E dominan haciendo el suite lento e imprácticamente largo'],
+   ans:3,
+   exp:'Pirámide de pruebas invertida: la base (unitarias) debería ser la mayoría por ser rápidas, baratas y estables. Aquí la cima (E2E) domina con 84% de las pruebas y 87% del tiempo. 2 horas de CI bloquea el flujo de trabajo — los desarrolladores dejan de correr el suite localmente y el feedback loop se rompe. La solución es invertir la proporción: muchas unitarias, pocas E2E estratégicas.',
+   trap:'Agregar más pruebas sin cambiar la proporción empeora el problema. Las 25 unitarias en 3 minutos demuestran que las unitarias son eficientes — el problema es que hay muy pocas. El número total de pruebas no es el indicador; la proporción y el tiempo de ejecución sí lo son.'},
+
+  {cat:'cicd',catL:'CI/CD',seg:'3.3',
+   intro:'Una empresa describe su proceso de entrega así: "Cada commit que pasa todas las etapas del pipeline (build, tests, staging, E2E) se despliega automáticamente a producción sin intervención humana."',
+   q:'¿Cómo se clasifica este proceso y cuál es el requisito técnico más crítico para que sea viable?',
+   opts:['Continuous Integration — viable con solo tener un servidor CI configurado correctamente','Continuous Delivery — viable si el equipo aprueba manualmente cada deploy a producción','Continuous Deployment — viable solo si las pruebas automatizadas tienen altísima confiabilidad','Continuous Testing — viable cuando la cobertura supera el 80% del código del sistema'],
+   ans:2,
+   exp:'Continuous Deployment: cada commit va automáticamente a producción. El requisito crítico es que las pruebas sean extremadamente confiables — si un bug pasa las pruebas llega directo a producción sin que ningún humano lo vea. Esto requiere pruebas exhaustivas, alta cobertura, pruebas de regresión completas y posiblemente feature flags para mitigar riesgos.',
+   trap:'Continuous Delivery también automatiza todo pero mantiene el deploy a producción como paso manual con aprobación humana. La clave diferenciadora es "sin intervención humana" — eso es Deployment. El 80% de cobertura es una métrica arbitraria, no el requisito crítico.'},
+
+  {cat:'docker',catL:'Docker',seg:'3.3',
+   intro:'Un DevOps analiza este Dockerfile en busca de problemas de rendimiento en el build:',
+   code:`FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["node", "index.js"]`,
+   q:'¿Cuál es el problema de caché y cómo afecta al tiempo de build cuando solo cambia index.js?',
+   opts:['EXPOSE debe ir antes de COPY para que Docker pueda cachear el puerto correctamente','CMD debe ser RUN para que Docker pre-ejecute el servidor durante la construcción','COPY . . invalida el caché — npm install re-ejecuta aunque package.json no haya cambiado','FROM node:18 descarga la imagen completa en cada build aunque ya esté en caché'],
+   ans:2,
+   exp:'COPY . . copia todos los archivos incluyendo index.js. Si solo cambia index.js, esa capa se invalida y Docker re-ejecuta npm install aunque package.json no haya cambiado. npm install puede tardar minutos. El orden correcto: COPY package*.json ./ → RUN npm install → COPY . . Así, npm install solo se re-ejecuta cuando cambian las dependencias, no cuando cambia el código.',
+   trap:'EXPOSE es solo documentación — no afecta el caché ni el comportamiento. FROM usa caché por digest de imagen. El problema es específicamente el orden de COPY y RUN npm install: al copiar todo primero, cualquier cambio en cualquier archivo invalida la capa de instalación.'},
+
+  {cat:'build',catL:'Build Tools',seg:'3.3',
+   intro:'Un nuevo desarrollador clona el repositorio y ejecuta npm install. Las pruebas pasan en su máquina. Al hacer push, el CI falla con un error en una dependencia transitiva que en su máquina funciona con la versión 2.1.3 pero en CI instala la 2.2.0.',
+   q:'¿Qué archivo falta o está mal gestionado y cómo previene este problema?',
+   opts:['El .npmrc no está configurado para apuntar al registry correcto del proyecto','El package-lock.json no está versionado en el repositorio — fija versiones exactas resueltas','El node_modules debe commitearse al repositorio para garantizar versiones idénticas','El package.json debe especificar todas las dependencias transitivas explícitamente'],
+   ans:1,
+   exp:'El package-lock.json registra la versión exacta de cada dependencia y su árbol completo de dependencias transitivas. Sin él en el repositorio, cada npm install resuelve las versiones según los rangos del package.json (~, ^) y puede obtener versiones diferentes. Con el lock file, todos obtienen exactamente las mismas versiones. "Funciona en mi máquina" desaparece.',
+   trap:'Commitear node_modules es una mala práctica — son cientos de MB y se regeneran. Especificar dependencias transitivas en package.json es imprácticamente complejo y no es la solución estándar. El lock file es el mecanismo diseñado exactamente para este problema.'},
+
+  {cat:'test',catL:'Testing — TDD',seg:'3.3',
+   intro:'Un desarrollador practica TDD. Escribe esta prueba que actualmente falla:',
+   code:`@Test
+void carrito_conProductoAgregado_actualizaTotal() {
+    Carrito carrito = new Carrito();
+    carrito.agregar(new Producto("Libro", 150.0));
+    assertEquals(150.0, carrito.getTotal());
+}`,
+   q:'Según el ciclo Red-Green-Refactor, ¿cuál es el siguiente paso correcto y qué viola si en cambio escribe la implementación completa de Carrito?',
+   opts:['Escribir todas las pruebas de Carrito antes de implementar para tener cobertura completa','Implementar la clase Carrito completa con todos los métodos necesarios para el dominio','Refactorizar el test para que sea más legible antes de escribir cualquier código','Implementar solo el mínimo código para que esta prueba específica pase y nada más'],
+   ans:3,
+   exp:'Green: implementar el MÍNIMO código para que esa prueba pase. Si implementa la clase completa viola el ciclo TDD — en TDD, el código solo existe para satisfacer pruebas existentes. Al implementar más de lo necesario, escribe código sin una prueba que lo justifique, lo que aumenta el riesgo de bugs no detectados por pruebas.',
+   trap:'El refactoring viene DESPUÉS de que la prueba pase, no antes de implementar. Escribir más pruebas antes de implementar también viola el ciclo — TDD es Red (una prueba) → Green (mínimo código) → Refactor. El ciclo es corto y secuencial, no "escribir todas las pruebas primero".'},
+
+  {cat:'cicd',catL:'CI/CD',seg:'3.3',
+   intro:'El pipeline de CI lleva 3 días fallando en la etapa de pruebas de integración. El equipo tiene un deadline mañana y decide desactivar temporalmente esa etapa para hacer el deploy.',
+   q:'¿Qué principio fundamental de CI viola esta decisión y cuál es la consecuencia técnica?',
+   opts:['Viola la regla de build roto — integrar código sobre un pipeline rojo acumula deuda técnica','Viola la regla de branches protegidos — desactivar etapas requiere permisos de administrador','Viola trunk-based development — los deploys solo pueden hacerse desde un main protegido','Viola versionado semántico — el artefacto no puede versionarse correctamente sin CI completo'],
+   ans:0,
+   exp:'Regla fundamental de CI: un build roto debe ser la máxima prioridad antes de cualquier integración nueva. Desactivar etapas para cumplir un deadline acumula deuda técnica: el código llega a producción sin las garantías de integración, los bugs se acumulan sobre código roto, y "arreglar CI" se pospone indefinidamente. La deuda crece con cada commit sobre un pipeline rojo.',
+   trap:'El trunk-based development y el versionado semántico son conceptos relacionados pero no son el principio violado aquí. La violación central es usar CI como herramienta opcional que se activa o desactiva según conveniencia — eso destruye su propósito de detectar problemas de integración temprano.'},
+
+  {cat:'docker',catL:'Docker',seg:'3.3',
+   intro:'Un equipo debate si usar Docker o VMs para un microservicio que debe escalar de 2 a 50 instancias en segundos durante picos de tráfico.',
+   q:'¿Cuál es el argumento técnico determinante para preferir contenedores sobre VMs en este escenario?',
+   opts:['Los contenedores tienen mejor aislamiento de seguridad que las VMs para microservicios','Los contenedores comparten el kernel y no pueden escalar a más de 10 instancias por host','Los contenedores usan menos CPU que las VMs porque no virtualizan el procesador directamente','Los contenedores arrancan en segundos vs minutos de las VMs — escalar a 50 instancias es viable'],
+   ans:3,
+   exp:'El tiempo de arranque es el argumento determinante: escalar de 2 a 50 instancias en segundos requiere que cada nueva instancia inicie rápidamente. Un contenedor arranca en 1-3 segundos. Una VM tarda 1-5 minutos en arrancar el sistema operativo completo. Para escalar rápidamente ante picos, los contenedores son la única opción viable.',
+   trap:'Las VMs tienen mejor aislamiento (kernel separado), no los contenedores. Los contenedores SÍ pueden escalar a decenas por host — el límite es de recursos (CPU/RAM), no un límite arquitectural. El CPU saving también es real pero no es el argumento determinante para el escenario de escalado rápido.'},
+
+  {cat:'test',catL:'Linters',seg:'3.3',
+   intro:'SonarQube reporta esta advertencia en el código de producción:',
+   code:`// Complejidad ciclomática: 18 (límite configurado: 10)
+public String calcularEstado(Pedido p) {
+    if (p.getMonto() > 1000) {
+        if (p.getCliente().isPremium()) {
+            if (p.getPais().equals("MX")) {
+                // ... 15 ramas más de lógica
+            }
+        }
+    }
+}`,
+   q:'¿Qué indica una complejidad ciclomática de 18 y por qué es problemática para el testing?',
+   opts:['Indica 18 líneas de código — el método supera el límite de tamaño recomendado','Indica 18 caminos de ejecución independientes — cobertura completa requiere 18 casos de prueba','Indica 18 dependencias externas — el método está acoplado a demasiados otros módulos externos','Indica 18 niveles de anidamiento — el compilador rechaza el método en algunos lenguajes'],
+   ans:1,
+   exp:'La complejidad ciclomática cuenta los caminos de ejecución independientes a través del código. CC=18 significa 18 caminos distintos que el código puede tomar. Para probar cobertura de ramas completa, necesitas al menos 18 casos de prueba. Esto hace el método difícil de probar exhaustivamente, propenso a bugs en ramas oscuras y difícil de mantener.',
+   trap:'CC no cuenta líneas ni niveles de anidamiento directamente — cuenta decisiones (if, for, while, case). Cada if agrega 1 al CC. Tampoco cuenta dependencias externas — eso es acoplamiento. Un CC de 18 es el resultado de todas las condiciones anidadas, no solo del nivel de indentación.'},
+
+  {cat:'git',catL:'Git',seg:'3.3',
+   intro:'Dos desarrolladores modificaron simultáneamente el mismo método en ramas distintas. Al intentar el merge, Git muestra el conflicto. El desarrollador A decide hacer:',
+   code:`git checkout feature-A
+git rebase main`,
+   q:'¿Por qué esta estrategia puede generar MÁS conflictos que un merge directo en este caso?',
+   opts:['El rebase requiere que feature-A esté sincronizada con el remoto antes de ejecutarse','El rebase genera un merge commit adicional que complica más la resolución del conflicto','El rebase aplica cada commit uno por uno — con 5 commits los conflictos aparecen 5 veces','El rebase solo funciona cuando las ramas no tienen historia divergente mayor a 24 horas'],
+   ans:2,
+   exp:'Con merge, los conflictos se resuelven una sola vez. Con rebase, Git re-aplica cada commit de feature-A sobre main secuencialmente. Si feature-A tiene 5 commits y todos modifican el mismo método, los conflictos pueden aparecer en cada uno de los 5 pasos del rebase. Esto multiplica el trabajo de resolución vs un solo merge.',
+   trap:'El rebase no requiere sincronización previa con el remoto. El rebase no genera merge commits — al contrario, los elimina para producir un historial lineal. El tiempo de divergencia no afecta la ejecución del rebase. El problema real es la multiplicación de conflictos cuando hay muchos commits sobre el mismo código.'},
+
+  {cat:'cicd',catL:'CI/CD',seg:'3.3',
+   intro:'El equipo configura GitHub Actions. Quieren que el pipeline se ejecute solo cuando hay cambios en la carpeta src/ o en package.json, no en cada push a cualquier archivo.',
+   q:'¿Qué concepto de CI/CD permite optimizar cuándo se dispara el pipeline y cuál es su beneficio principal?',
+   opts:['Branch protection rules — protegen el branch main de pushes directos sin PR aprobado','Path-based triggers — el pipeline solo corre cuando cambian archivos relevantes, ahorrando recursos','Parallel jobs — ejecutan múltiples etapas simultáneamente reduciendo el tiempo total del pipeline','Environment variables — permiten configurar el pipeline diferente según el archivo modificado'],
+   ans:1,
+   exp:'Los path-based triggers (filtros por ruta) permiten definir qué rutas de archivos activan el pipeline. Si solo cambia README.md o un archivo de documentación, no tiene sentido ejecutar compilación, pruebas y análisis estático completos. Esto ahorra tiempo de ejecución, minutos de CI y feedback más rápido al equipo cuando los cambios son relevantes.',
+   trap:'Branch protection rules son un mecanismo de governance (quién puede mergear), no de optimización de cuándo correr CI. Parallel jobs reducen duración pero no cuándo se dispara. Las variables de entorno configuran el comportamiento, no el trigger.'},
+
+  {cat:'build',catL:'Build Tools',seg:'3.3',
+   intro:'Un proyecto Java usa Maven. El equipo agrega una dependencia nueva al pom.xml con scope "test". Al desplegar a producción, la dependencia no está incluida en el artefacto final.',
+   q:'¿Por qué la dependencia no está en producción y cuándo sería correcto usar scope "test" vs "compile"?',
+   opts:['Maven excluye las dependencias con scope test del artefacto final porque solo se usan en pruebas','Maven incluye todas las dependencias en el artefacto pero las desactiva en producción automáticamente','El scope test indica que la dependencia es opcional y el desarrollador debe incluirla manualmente','Maven requiere que el scope sea "runtime" para incluir dependencias en el artefacto de despliegue'],
+   ans:0,
+   exp:'Maven scope "test" significa que la dependencia solo está disponible durante la compilación y ejecución de pruebas — no se incluye en el JAR/WAR final. Es correcto para JUnit, Mockito, TestContainers: herramientas que no deben llegar a producción (aumentan el tamaño del artefacto innecesariamente). "Compile" (default) incluye la dependencia en el artefacto. "Runtime" la incluye pero no en compilación.',
+   trap:'"Runtime" en Maven es para dependencias que se necesitan en ejecución pero no en compilación (ej: driver JDBC). No es lo mismo que "compile". Maven no desactiva dependencias — las incluye o excluye del artefacto según el scope. No hay inclusión manual posterior.'},
+
+  {cat:'test',catL:'Testing',seg:'3.3',
+   intro:'Un equipo mide la cobertura de código de sus pruebas unitarias y obtiene 95%. El CTO felicita al equipo. Sin embargo, en el siguiente sprint aparecen 3 bugs críticos en producción que las pruebas no detectaron.',
+   q:'¿Qué limitación fundamental de la métrica de cobertura de código explica que 95% no garantice ausencia de bugs?',
+   opts:['La cobertura mide cuántas líneas se ejecutan, no si los resultados son correctos para todos los casos','La cobertura del 95% indica que el 5% sin cubrir contiene siempre los bugs más críticos del sistema','La cobertura solo es válida cuando se combina con análisis estático y complejidad ciclomática','La cobertura de 95% en pruebas unitarias no incluye el comportamiento de las dependencias externas'],
+   ans:0,
+   exp:'Cobertura mide qué líneas/ramas se ejecutan durante las pruebas — no verifica que los resultados sean correctos. Una prueba puede ejecutar una línea y no verificar el valor de retorno (sin assertion). También, una línea puede ejecutarse con datos de prueba que nunca revelan el bug — que aparece con datos específicos de producción. Alta cobertura indica que el código se ejecutó, no que es correcto.',
+   trap:'No hay evidencia de que el 5% sin cubrir contenga exactamente los bugs — es una afirmación falsa. La cobertura complementa, no reemplaza, el análisis estático. Las dependencias externas son un problema de pruebas de integración, no de la métrica de cobertura en sí.'},
+
+  {cat:'docker',catL:'Docker',seg:'3.3',
+   intro:'Un equipo usa docker-compose para su entorno de desarrollo local. El archivo define tres servicios: api (Node.js), db (PostgreSQL) y cache (Redis). El servicio api depende de db y cache.',
+   q:'¿Qué problema persiste aunque se use depends_on en docker-compose para el servicio api?',
+   opts:['depends_on no funciona con más de dos servicios simultáneos en la misma red Docker','depends_on espera que el contenedor inicie pero no que la aplicación interna esté lista','depends_on solo funciona en docker-compose v2 pero no en v3 que es el estándar actual','depends_on requiere que los servicios tengan healthchecks definidos para poder funcionar'],
+   ans:1,
+   exp:'depends_on espera que el CONTENEDOR inicie (que el proceso arranque) pero no que el SERVICIO dentro esté listo. PostgreSQL puede tardar 2-3 segundos en inicializar su base de datos después de que el contenedor arranca. Si api intenta conectarse en ese intervalo, falla. La solución correcta es combinar depends_on con healthcheck: condition: service_healthy, donde el healthcheck verifica que PostgreSQL acepta conexiones.',
+   trap:'depends_on sí funciona con múltiples servicios y en compose v3. El problema técnico específico es "container started ≠ service ready" — la distinción entre el proceso iniciando y la aplicación siendo funcional. healthcheck es la solución, no un requisito previo para que depends_on funcione.'},
+
+  // ===== BLOQUE 3.4 GESTIÓN DE DATOS (14 preguntas) =====
+  {cat:'sql',catL:'SQL',seg:'3.4',
+   intro:'Una consulta necesita listar los 3 departamentos con mayor salario promedio, pero solo considerando empleados con más de 2 años en la empresa:',
+   code:`SELECT departamento, AVG(salario) AS promedio
+FROM empleados
+WHERE AVG(salario) > 50000          -- ¿Correcto?
+  AND anos_experiencia > 2
+GROUP BY departamento
+ORDER BY promedio DESC
+LIMIT 3;`,
+   q:'¿Qué error contiene esta consulta y cómo se corrige?',
+   opts:['ORDER BY no puede usar alias de SELECT — debe repetir AVG(salario) DESC','LIMIT debe ir antes de ORDER BY para que el motor filtre antes de ordenar','WHERE no puede contener AVG() — el filtro por promedio debe ir en HAVING','GROUP BY debe incluir todas las columnas del SELECT que no sean agregaciones'],
+   ans:2,
+   exp:'WHERE se ejecuta ANTES del GROUP BY — en ese momento no existe todavía ningún AVG calculado. Solo HAVING puede filtrar por funciones de agregación porque se ejecuta DESPUÉS del GROUP BY. La corrección: mover AVG(salario) > 50000 a una cláusula HAVING, mantener anos_experiencia > 2 en WHERE (filtra filas antes de agrupar).',
+   trap:'ORDER BY sí puede usar alias definidos en SELECT en la mayoría de RDBMS. LIMIT siempre va al final. GROUP BY solo necesita incluir columnas no agregadas del SELECT — departamento ya está ahí. El único error real es usar una función de agregación en WHERE.'},
+
+  {cat:'acid',catL:'ACID',seg:'3.4',
+   intro:'Dos transacciones ejecutan simultáneamente sobre la misma cuenta bancaria:',
+   code:`T1: SELECT saldo FROM cuentas WHERE id=1; -- lee 1000
+T2: SELECT saldo FROM cuentas WHERE id=1; -- lee 1000
+T1: UPDATE cuentas SET saldo = 1000 - 300 WHERE id=1; -- saldo=700
+T2: UPDATE cuentas SET saldo = 1000 - 500 WHERE id=1; -- saldo=500
+T1: COMMIT;
+T2: COMMIT;
+-- Saldo final: 500 (incorrecto, debería ser 200)`,
+   q:'¿Qué anomalía de concurrencia ilustra este escenario y qué propiedad ACID la previene?',
+   opts:['Lectura sucia — la Durabilidad garantiza que T1 persiste correctamente antes que T2','Lectura no repetible — la Consistencia garantiza que ambas transacciones lean el mismo valor','Actualización perdida — el Aislamiento previene que T2 sobreescriba el resultado de T1','Phantom read — la Atomicidad garantiza que solo una de las dos transacciones confirme'],
+   ans:2,
+   exp:'Actualización perdida (lost update): T1 y T2 leen el mismo valor (1000), calculan sus actualizaciones independientemente y la segunda en commitear sobreescribe el resultado de la primera. 300+500=800 debería restar de 1000 dejando 200, pero el saldo queda en 500. El Aislamiento (nivel SERIALIZABLE o uso de SELECT FOR UPDATE) previene esto serializando el acceso.',
+   trap:'Lectura sucia es cuando T2 lee datos de T1 antes del COMMIT — aquí ambas leen datos commiteados. No es phantom read (aparición de filas nuevas). Es específicamente una actualización perdida porque el UPDATE de T2 sobreescribe el cambio de T1 que ya había committeado.'},
+
+  {cat:'sql',catL:'SQL',seg:'3.4',
+   intro:'Una base de datos tiene la tabla pedidos con 10 millones de filas. Esta consulta es frecuente y tarda 8 segundos:',
+   code:`SELECT cliente_id, COUNT(*) as total_pedidos, SUM(monto) as total
+FROM pedidos
+WHERE fecha >= '2024-01-01'
+  AND estado = 'COMPLETADO'
+GROUP BY cliente_id
+HAVING COUNT(*) > 5
+ORDER BY total DESC;`,
+   q:'¿Cuál de estas afirmaciones sobre el comportamiento de esta consulta es técnicamente correcta?',
+   opts:['HAVING COUNT(*) > 5 filtra las filas antes de agrupar para mejorar el rendimiento','ORDER BY procesa todas las filas antes de que HAVING pueda filtrar los grupos','GROUP BY se ejecuta antes de WHERE para poder determinar los grupos de clientes','WHERE se ejecuta primero reduciendo las filas antes de que COUNT y SUM se calculen'],
+   ans:3,
+   exp:'WHERE se ejecuta primero en el orden lógico de SQL: filtra las 10 millones de filas por fecha y estado ANTES de que GROUP BY agrupe y COUNT/SUM calculen. Esto es crucial para el rendimiento — solo las filas que cumplen el WHERE participan en el agrupamiento. Un índice compuesto en (fecha, estado) haría esta consulta muy eficiente.',
+   trap:'HAVING nunca filtra antes de agrupar — se ejecuta DESPUÉS del GROUP BY. ORDER BY se ejecuta al final, después de HAVING. GROUP BY NUNCA se ejecuta antes de WHERE — el orden es FROM→WHERE→GROUP BY→HAVING→SELECT→ORDER BY. Este orden es invariable en SQL.'},
+
+  {cat:'tipos',catL:'Tipos de datos',seg:'3.4',
+   intro:'Un sistema de recursos humanos almacena tres tipos de información:\n\nA) Tabla empleados: id, nombre, puesto, salario, fecha_ingreso\nB) Currículos en PDF subidos por los empleados\nC) Historial de evaluaciones como objetos JSON con campos variables por año',
+   q:'¿Cómo se clasifica correctamente cada tipo según la taxonomía de datos?',
+   opts:['A=estructurado, B=semiestructurado, C=no estructurado','A=estructurado, B=no estructurado, C=semiestructurado','A=semiestructurado, B=no estructurado, C=estructurado','A=no estructurado, B=semiestructurado, C=estructurado'],
+   ans:1,
+   exp:'A: estructurado — tabla con esquema fijo, columnas tipadas, SQL. B: no estructurado — PDFs son binarios con texto libre, sin estructura queryable directamente. C: semiestructurado — JSON tiene organización (clave:valor) pero campos variables por año, sin esquema fijo. La distinción clave: B tiene contenido pero sin organización interna queryable; C tiene organización pero flexible.',
+   trap:'Los PDFs no son semiestructurados aunque tengan secciones como "Experiencia" o "Educación" — esas secciones son texto libre para humanos, no estructura queryable por una BD. El JSON sí es semiestructurado porque tiene estructura clave:valor aunque variable.'},
+
+  {cat:'nosql',catL:'NoSQL',seg:'3.4',
+   intro:'Una startup construye un sistema de detección de fraude en tiempo real. El sistema debe analizar patrones como "este usuario pagó desde 3 países distintos en 5 minutos" navegando relaciones entre transacciones, dispositivos, ubicaciones y usuarios.',
+   q:'¿Qué tipo de base de datos NoSQL está arquitecturalmente optimizado para este patrón de consulta y por qué las otras opciones son subóptimas?',
+   opts:['Clave-valor — búsqueda O(1) por user_id garantiza detección en milisegundos','Columnar — diseñado para analytics masivos sobre millones de transacciones','Documento — almacena el historial completo del usuario en un solo documento','Grafo — traversal de relaciones multi-salto entre entidades es su caso de uso nativo'],
+   ans:3,
+   exp:'Base de datos de grafo: "usuario→transacción→dispositivo→ubicación→país" son exactamente relaciones multi-salto. Neo4j y similares están optimizados para traversal de grafos — encontrar patrones de relación entre nodos. En SQL, esto requeriría múltiples JOINs costosos. En NoSQL documento, múltiples queries y join manual en aplicación. El grafo lo hace en una sola consulta Cypher/Gremlin.',
+   trap:'Clave-valor no puede navegar relaciones — solo accede por clave directa. Columnar es para analytics de lectura masiva sobre pocas columnas (IoT, series de tiempo), no para traversal de relaciones. Documento podría almacenar las relaciones pero navegar múltiples saltos requeriría múltiples queries.'},
+
+  {cat:'sql',catL:'SQL',seg:'3.4',
+   intro:'Un administrador ejecuta estas operaciones:',
+   code:`BEGIN;
+UPDATE inventario SET stock = stock - 50 WHERE producto_id = 101;
+SAVEPOINT sp1;
+UPDATE inventario SET stock = stock - 30 WHERE producto_id = 102;
+-- Detecta error: producto 102 no existe
+ROLLBACK TO sp1;
+UPDATE inventario SET stock = stock - 20 WHERE producto_id = 103;
+COMMIT;`,
+   q:'¿Cuál es el estado final del inventario después del COMMIT?',
+   opts:['Ningún cambio — el ROLLBACK TO sp1 deshace la transacción completa desde el inicio','producto_id 101 reducido en 50, producto_id 102 sin cambio, 103 reducido en 20','Solo producto_id 103 reducido en 20 — el SAVEPOINT deshace también el UPDATE de 101','producto_id 102 sin cambio y 103 reducido en 20 — el UPDATE de 101 nunca se ejecutó'],
+   ans:1,
+   exp:'ROLLBACK TO sp1 deshace solo los cambios posteriores al SAVEPOINT — el UPDATE de producto 102. El UPDATE de producto 101 (anterior al SAVEPOINT) se mantiene. Luego el UPDATE de producto 103 procede. El COMMIT confirma todo: 101 -50, 102 sin cambio (rollback deshizo el intento), 103 -20.',
+   trap:'ROLLBACK TO sp1 NO deshace toda la transacción — solo deshace hasta el punto de guardado. Para deshacer todo necesitaría ROLLBACK sin TO. El SAVEPOINT es precisamente para hacer rollbacks parciales dentro de una transacción.'},
+
+  {cat:'nosql',catL:'NoSQL — CAP',seg:'3.4',
+   intro:'Una empresa financiera en México tiene centros de datos en CDMX y Monterrey. Necesitan que si el enlace de red entre ambos se cae, ambos centros sigan operando independientemente y que los saldos sean siempre exactamente los mismos en ambos sitios.',
+   q:'¿Por qué estos dos requisitos son técnicamente incompatibles según el Teorema CAP?',
+   opts:['Son compatibles — la replicación síncrona garantiza ambas propiedades simultáneamente','Violan CAP: operar ante falla de red (P obligatorio) exige elegir entre A o C, no las dos','Los bancos no pueden usar BD distribuidas por regulaciones financieras que impiden el CAP','Son incompatibles porque los saldos financieros requieren ACID completo que NoSQL no ofrece'],
+   ans:1,
+   exp:'CAP: con una partición de red (P obligatorio), tienes que elegir entre C y A. "Operar independientemente cuando el enlace se cae" = disponibilidad (A). "Saldos exactamente iguales en ambos sitios" = consistencia (C). Cuando la red falla, para mantener consistencia debes rechazar operaciones en uno o ambos centros (sacrificar A). Para mantener disponibilidad, ambos operan pero pueden divergir (sacrificar C). No se puede garantizar ambos simultáneamente durante una partición.',
+   trap:'La replicación síncrona garantiza C y P pero sacrifica A: si el enlace se cae, las escrituras esperan o fallan hasta que se restablezca. Las regulaciones financieras son un factor externo al teorema CAP. ACID y NoSQL no son el punto — el teorema aplica independientemente del motor.'},
+
+  {cat:'dist',catL:'Fragmentación y Replicación',seg:'3.4',
+   intro:'Una plataforma de e-commerce tiene 800 millones de registros de historial de compras. El equipo de analytics necesita generar reportes mensuales que crucen datos de todos los usuarios. El arquitecto propone fragmentación horizontal por rango de user_id.',
+   q:'¿Cuál es el desafío técnico principal de esta estrategia para los reportes mensuales?',
+   opts:['Los reportes mensuales no pueden ejecutarse porque la fragmentación horizontal solo permite consultas por user_id','Los reportes deben coordinar resultados parciales de múltiples fragmentos — complejidad y latencia aumentan','La fragmentación horizontal es incompatible con bases de datos relacionales para datos de e-commerce','Los reportes mensuales requieren fragmentación vertical por fecha, no horizontal por user_id'],
+   ans:1,
+   exp:'Los reportes mensuales necesitan datos de TODOS los usuarios — cruzan todos los fragmentos. El motor debe enviar la consulta a cada fragmento, obtener resultados parciales y unirlos (scatter-gather). Esto implica latencia de red adicional, coordinación entre nodos y posibles cuellos de botella. Los reportes que acceden a un solo user_id son rápidos; los que cruzan toda la tabla son costosos en un sistema fragmentado.',
+   trap:'La fragmentación horizontal sí permite consultas distintas a user_id, pero con costo adicional. No existe una incompatibilidad arquitectural con bases relacionales. La fragmentación vertical por fecha no resolvería el problema — el desafío es el scatter-gather de reportes completos, no el criterio de fragmentación.'},
+
+  {cat:'sql',catL:'SQL',seg:'3.4',
+   intro:'Una consulta usa subconsulta correlacionada para encontrar empleados con salario mayor al promedio de su departamento:',
+   code:`SELECT e1.nombre, e1.salario, e1.departamento
+FROM empleados e1
+WHERE e1.salario > (
+    SELECT AVG(e2.salario)
+    FROM empleados e2
+    WHERE e2.departamento = e1.departamento
+);`,
+   q:'¿Por qué esta consulta puede ser significativamente más lenta que una versión con JOIN + GROUP BY para una tabla de 500,000 empleados?',
+   opts:['El alias e2 impide que el optimizador cachee el resultado entre ejecuciones sucesivas','La subconsulta correlacionada re-evalúa el AVG una vez por cada fila — 500,000 veces en total','El WHERE con subconsulta bloquea el uso de índices en la columna salario de la tabla','La subconsulta correlacionada causa deadlock cuando dos empleados tienen el mismo salario'],
+   ans:1,
+   exp:'Una subconsulta correlacionada referencia la consulta exterior (e1.departamento). El motor debe re-ejecutarla para cada fila de e1. Con 500,000 empleados, AVG(salario) se calcula 500,000 veces — una por cada fila. Una versión con GROUP BY calcula el promedio por departamento una sola vez y hace JOIN. La diferencia puede ser órdenes de magnitud en rendimiento.',
+   trap:'Los alias no afectan el caché del optimizador. Los índices no están bloqueados por subconsultas en WHERE. Las subconsultas correlacionadas no causan deadlocks — los deadlocks ocurren con transacciones que bloquean recursos en orden inverso. El problema es puramente la re-evaluación por cada fila.'},
+
+  {cat:'tipos',catL:'Tipos de datos',seg:'3.4',
+   intro:'Una empresa almacena datos de sensores IoT. Cada sensor envía lecturas cada segundo con estos atributos:\n- sensor_id, timestamp, temperatura, humedad, presion\nEl equipo necesita consultas del tipo: "dame todas las lecturas de temperatura del sensor X en el último mes".',
+   q:'¿Por qué una base de datos columnar (Cassandra/HBase) es técnicamente superior a MongoDB para este caso de uso específico?',
+   opts:['MongoDB requiere esquema fijo y no soporta datos de sensores con campos variables','Las bases columnares almacenan temperaturas contiguas y las consultas de columna son O(1)','Las columnares comprimen datos similares y recuperan solo la columna solicitada sin leer el resto','MongoDB tiene costos de licencia prohibitivos para el volumen de datos de sensores IoT'],
+   ans:2,
+   exp:'Las bases columnares almacenan los datos por columna — todas las temperaturas juntas, todas las humedades juntas. Para "dame todas las temperaturas del sensor X", el motor lee solo la columna temperatura sin leer humedad ni presión. Además, datos del mismo tipo (floats de temperatura) comprimen muy bien. MongoDB almacena por documento (fila) — para leer temperatura debe leer el documento completo con todos sus campos.',
+   trap:'MongoDB sí soporta datos de sensores y tiene esquema flexible. Las bases columnares no son O(1) para consultas — son eficientes por lectura de columnas completas, no por acceso individual. El costo de licencias no es un argumento técnico de diseño.'},
+
+  {cat:'acid',catL:'ACID',seg:'3.4',
+   intro:'Una tienda en línea tiene este código de checkout:',
+   code:`connection.setAutoCommit(false);
+try {
+    reducirStock(productoId, cantidad);  // UPDATE
+    crearPedido(clienteId, productos);   // INSERT
+    cobrarTarjeta(monto);               // llamada a API externa
+    connection.commit();
+} catch (Exception e) {
+    connection.rollback();
+}`,
+   q:'¿Cuál es el problema de incluir la llamada a la API externa de cobro DENTRO de la transacción?',
+   opts:['La API externa no puede incluirse en una transacción SQL porque no habla el protocolo JDBC','El autoCommit false impide que la API externa reciba confirmación del pago correctamente','Si la API cobra pero luego falla la BD, el rollback revierte el stock pero el cobro ya ocurrió','Las transacciones SQL tienen timeout y una llamada HTTP puede exceder el tiempo límite'],
+   ans:2,
+   exp:'La API externa (Stripe, PayPal) opera fuera de la transacción SQL. Si la API cobra exitosamente y luego crearPedido falla, el rollback revierte el UPDATE de stock y el INSERT del pedido — pero el cobro ya ocurrió en el sistema externo. El cliente fue cobrado pero no tiene pedido. Este es el problema de las transacciones distribuidas con sistemas externos que no participan en el protocolo de dos fases.',
+   trap:'El problema no es técnico de JDBC o protocolos. El timeout es un problema secundario pero no el principal. El autoCommit no afecta la comunicación con la API. El problema fundamental es la naturaleza irreversible del cobro externo vs la reversibilidad del rollback SQL.'},
+
+  {cat:'dist',catL:'Replicación',seg:'3.4',
+   intro:'Un sistema de reservas de vuelos usa replicación maestro-réplica. El 95% de las operaciones son lecturas (consultar vuelos disponibles). Un usuario busca un vuelo con 2 asientos disponibles, la réplica le muestra 2, hace el pago y al confirmar el sistema rechaza la reserva con "sin disponibilidad".',
+   q:'¿Qué fenómeno de sistemas distribuidos causó este problema y cuál sería la solución técnica?',
+   opts:['Fragmentación horizontal — el vuelo estaba en un shard distinto al consultado por la réplica','Consistencia eventual — la réplica tenía datos desactualizados; las reservas deben ir al maestro','Deadlock de transacciones — dos usuarios reservaron simultáneamente bloqueando el mismo registro','Phantom read — la búsqueda y la confirmación leyeron estados distintos del mismo registro'],
+   ans:1,
+   exp:'Consistencia eventual: la réplica tenía datos de antes de que otro usuario reservara esos 2 asientos. El lag de replicación (aunque sea milisegundos) fue suficiente para que el usuario viera disponibilidad inexistente. Para reservas — operaciones de escritura con consecuencias financieras — la confirmación y el bloqueo de asientos debe ir siempre al maestro, no a las réplicas.',
+   trap:'No es fragmentación — la réplica tiene los mismos datos que el maestro, solo desactualizados. Deadlock implicaría que las transacciones se bloquean mutuamente — aquí solo hay un problema de lectura desactualizada. Phantom read es una anomalía de aislamiento dentro de una transacción, no entre maestro y réplica.'},
+
+  // ===== BLOQUE 3.5 PLATAFORMAS (14 preguntas) =====
+  {cat:'web',catL:'Web',seg:'3.5',
+   intro:'Un equipo de 20 desarrolladores construye un portal bancario. El tech lead dice: "Usaremos Angular porque necesitamos estructura, inyección de dependencias, manejo de formularios reactivos y que todos los desarrolladores sigan las mismas convenciones sin necesidad de decisiones de arquitectura individuales."',
+   q:'¿Cuál es la característica de Angular que justifica técnicamente la elección versus React en este contexto?',
+   opts:['Angular tiene mejor rendimiento en renderizado que React para formularios bancarios complejos','Angular usa TypeScript obligatorio mientras React solo funciona correctamente con JavaScript estándar','Angular es un framework opinionado y completo que impone estructura uniforme en equipos grandes','Angular tiene soporte oficial de Google garantizando mantenimiento a largo plazo en sistemas bancarios'],
+   ans:2,
+   exp:'Angular es opinionado: incluye routing (Angular Router), formularios (Reactive Forms), DI, módulos, pipes y TypeScript como ciudadanos de primera clase. No hay que tomar decisiones sobre qué librería de routing o estado usar — Angular las impone. Para 20 desarrolladores, esto garantiza coherencia de código. React es una biblioteca que requiere elegir y configurar cada pieza del ecosistema.',
+   trap:'React también tiene excelente rendimiento con formularios complejos. React funciona muy bien con TypeScript — es ampliamente usado. El soporte de Google vs Meta no es un argumento técnico de diseño. La ventaja real es la arquitectura opinionada que reduce decisiones de diseño en equipos grandes.'},
+
+  {cat:'mob',catL:'Móvil',seg:'3.5',
+   intro:'Un equipo evalúa Flutter vs React Native para una app bancaria. El gerente de producto insiste en que "la app debe verse exactamente igual en la captura de pantalla de iOS que en la de Android para los materiales de marketing".',
+   q:'¿Cuál es la ventaja técnica de Flutter para este requisito específico y cuál es su trade-off principal?',
+   opts:['Flutter tiene mejor soporte para animaciones que React Native en ambas plataformas','Flutter dibuja con su motor propio garantizando UI pixel-perfect — pero no se ve nativa del SO','Flutter usa Dart que compila más rápido que el JS/TS de React Native en gama baja','Flutter tiene mejor acceso a las APIs de biometría de iOS que React Native específicamente'],
+   ans:1,
+   exp:'Flutter usa Skia/Impeller como motor gráfico propio — dibuja cada widget directamente en el canvas sin usar componentes nativos del SO. Esto garantiza que la UI sea pixel-perfect idéntica en iOS y Android. El trade-off: la UI no se ve "nativa" de cada plataforma (un botón Flutter se ve igual en iOS que en Android, no como los botones de cada SO).',
+   trap:'El soporte de animaciones no es el diferenciador para este requisito. Dart compilado no es el argumento del marketing de materiales. Flutter no tiene necesariamente mejor acceso a biometría — esto depende de los plugins disponibles, no del motor gráfico.'},
+
+  {cat:'emb',catL:'Embebido',seg:'3.5',
+   intro:'Un equipo desarrolla firmware para un marcapasos. El dispositivo tiene 128KB de flash y 32KB de RAM. El software debe garantizar que el pulso eléctrico se genera exactamente cada 800ms ±0.5ms.',
+   q:'¿Cuáles son los dos requisitos técnicos que determinan la elección de C con un RTOS como FreeRTOS sobre Python o Java?',
+   opts:['Velocidad de desarrollo — C con RTOS permite iteraciones mucho más rápidas que lenguajes modernos','Costo de licencias — FreeRTOS es open source mientras la JVM requiere licencias costosas en embebidos','Sin GC y tiempo real garantizado — el GC puede pausar y ±0.5ms es incompatible con esas pausas','Tamaño del equipo — C es el único lenguaje que los ingenieros de hardware conocen correctamente'],
+   ans:2,
+   exp:'Sin GC: el GC de Java/Python puede pausar la ejecución en momentos impredecibles — con una tolerancia de ±0.5ms, una pausa de GC de 10-50ms es literalmente inaceptable en un marcapasos (riesgo de vida). Tiempo real: un RTOS garantiza que la tarea de pulso se ejecute exactamente en su deadline de 800ms. C sin GC + RTOS = comportamiento completamente determinista y predecible.',
+   trap:'La velocidad de desarrollo NO es la razón — C es más lento de desarrollar que Python. Las licencias de JVM para embebidos existen pero no es el argumento técnico determinante. La razón es médica y técnica: tolerancias de microsegundos son incompatibles con cualquier mecanismo de memoria automática no determinista.'},
+
+  {cat:'sel',catL:'Selección',seg:'3.5',
+   intro:'Una empresa tiene un sistema de inventario en PHP/Laravel con 6 años de antigüedad. Los usuarios piden acceso desde móvil. El equipo PHP (5 personas) no conoce Swift, Kotlin ni JavaScript moderno. El presupuesto es limitado.',
+   q:'¿Cuál es la estrategia técnicamente más pragmática y por qué descarta desarrollo nativo?',
+   opts:['Convertir el sistema a PWA — el equipo PHP puede hacerlo sin aprender nuevas tecnologías','Contratar un equipo externo de React Native para construir las apps en tres meses','Reescribir el sistema completo en React para unificar frontend y backend en un ecosistema','Exponer el backend PHP como API REST y contratar un desarrollador Flutter externo'],
+   ans:0,
+   exp:'PWA: el equipo PHP puede agregar un manifest.json y service worker al sistema Laravel existente — sin aprender Swift, Kotlin ni JS moderno. El usuario instala la PWA desde el navegador del móvil y obtiene una experiencia casi nativa (notificaciones push, acceso offline parcial, icono en home screen). Mínimo costo de transición, máximo aprovechamiento del sistema existente.',
+   trap:'Contratar externos y Flutter implica costo adicional y coordinación. Reescribir en React es el escenario de mayor riesgo y costo con un sistema de 6 años — la reescritura completa raramente es la respuesta pragmática. La API REST + Flutter también tiene costos de contratación y coordinación que la PWA evita.'},
+
+  {cat:'web',catL:'Web',seg:'3.5',
+   intro:'La guía EGEL cita explícitamente la comparativa PHP vs JavaScript (Burets). Un arquitecto evalúa Node.js vs PHP para un nuevo microservicio de webhooks que recibe eventos de múltiples fuentes y los re-distribuye a cientos de suscriptores simultáneamente.',
+   q:'¿Cuál es la razón técnica más sólida para elegir Node.js sobre PHP en este escenario específico?',
+   opts:['Node.js tiene mejor ecosistema npm con más librerías especializadas para webhooks','PHP necesita Apache o Nginx mientras Node.js puede correr sin servidor web externo','Node.js es event-driven no bloqueante — maneja miles de conexiones con un solo hilo','PHP no puede superar 100 conexiones simultáneas por limitaciones de su modelo de procesos'],
+   ans:2,
+   exp:'Node.js usa un event loop no bloqueante: un solo hilo gestiona miles de conexiones concurrentes sin bloquearse mientras espera I/O. Para webhooks con cientos de suscriptores simultáneos (muchas conexiones abiertas esperando eventos), esto es exactamente el caso de uso ideal. PHP tradicional crea un proceso/hilo por petición — escalar a cientos de conexiones simultáneas persistentes consume muchos más recursos.',
+   trap:'El ecosistema npm es válido pero no es el argumento técnico determinante. PHP puede correr sin Apache con su servidor built-in o con FPM. PHP sí puede manejar más de 100 conexiones con configuración adecuada — la limitación no es un número fijo sino el modelo de proceso-por-petición. El argumento correcto es el modelo de concurrencia.'},
+
+  {cat:'mob',catL:'Móvil',seg:'3.5',
+   intro:'Un equipo de 3 desarrolladores con experiencia en React/JavaScript tiene 4 meses para lanzar una app de delivery que necesita: geolocalización en tiempo real, notificaciones push, cámara para fotos de entrega, y pagos con NFC.',
+   q:'¿Cuál es la elección más adecuada y qué factor técnico podría obligar a usar módulos nativos adicionales?',
+   opts:['Nativo separado (Kotlin + Swift) para garantizar acceso completo a todas las APIs disponibles','Flutter porque Dart compila a código nativo garantizando acceso directo a NFC sin módulos extras','Ionic porque el equipo web reutiliza HTML/CSS directamente sin necesidad de aprender nada nuevo','React Native porque el equipo ya sabe React, pero NFC puede requerir un módulo nativo extra'],
+   ans:3,
+   exp:'React Native: el equipo ya conoce React (reutilización máxima de conocimiento), un codebase para iOS y Android, y tiene soporte para geolocalización, notificaciones push y cámara. El NFC es el factor de riesgo: el soporte NFC en React Native depende de módulos de terceros que pueden no estar actualizados para las últimas APIs de iOS/Android. Puede requerir un módulo nativo personalizado (native module en Java/Kotlin o Swift/ObjC).',
+   trap:'Nativo separado duplicaría el esfuerzo con 3 personas en 4 meses. Flutter requeriría aprender Dart desde cero. Ionic usa WebView con peor rendimiento para geolocalización en tiempo real y puede tener problemas con NFC. React Native + módulo nativo para NFC es el balance pragmático.'},
+
+  {cat:'emb',catL:'Embebido',seg:'3.5',
+   intro:'Un ingeniero en México desarrolla firmware para un sensor de temperatura industrial. Compila el código en su laptop Windows (x86_64) usando arm-none-eabi-gcc y genera un binario .elf que se flashea al microcontrolador STM32 (ARM Cortex-M4).',
+   q:'¿Qué dos conceptos de desarrollo embebido ilustra este flujo de trabajo?',
+   opts:['Compilación nativa y uso de RTOS para gestionar las tareas del sensor de temperatura','Compilación cruzada (x86→ARM) y separación entre host de desarrollo y target de ejecución','Programación bare-metal y uso de ensamblador para el código de bajo nivel del sensor','Virtualización de hardware y contenedores Docker para el entorno de desarrollo embebido'],
+   ans:1,
+   exp:'Cross-compilation: arm-none-eabi-gcc es un compilador cruzado que corre en x86_64 (host) pero genera código ARM Cortex-M4 (target). El binario .elf no puede ejecutarse en la laptop. Separación host/target: el desarrollo ocurre en un entorno rico (Windows + IDE + debugger) pero el código se ejecuta en hardware restringido (microcontrolador sin SO ni display). Es el flujo estándar de desarrollo embebido.',
+   trap:'No se menciona RTOS en el escenario — es cross-compilation + host/target. No se menciona Assembly — arm-none-eabi-gcc compila C/C++. Docker y virtualización son para software convencional — un microcontrolador con KBs de RAM no puede ejecutar Docker.'},
+
+  {cat:'sel',catL:'Selección',seg:'3.5',
+   intro:'La bibliografía EGEL cita Stackshare: C++ vs JavaScript vs PHP. Un director de tecnología evalúa qué tecnología usar para tres módulos diferentes de un sistema industrial:\n\nMódulo A: Interfaz web para operadores que monitorean el sistema\nMódulo B: Motor de cálculo de trayectorias para un brazo robótico (tiempo real)\nMódulo C: API REST que recibe datos de sensores y los almacena en BD',
+   q:'¿Qué asignación de tecnología es la más coherente con las fortalezas de C++ vs JS vs PHP según la bibliografía EGEL?',
+   opts:['A=PHP para web, B=JavaScript para tiempo real, C=C++ para la API REST','A=C++ para web, B=PHP para tiempo real, C=JavaScript para la API REST','A=JavaScript para web, B=C++ para tiempo real, C=PHP para la API REST','A=JavaScript para web, B=C++ para tiempo real, C=JavaScript/Node.js para la API REST'],
+   ans:3,
+   exp:'A=JavaScript (React/Angular): interfaz web requiere JS en el frontend obligatoriamente. B=C++: cálculos de trayectorias en tiempo real requieren determinismo sin GC y máximo rendimiento — exactamente la fortaleza de C++. C=JavaScript (Node.js): API REST con I/O hacia BD es el caso ideal del modelo asíncrono de Node.js. PHP podría usarse en C pero Node.js es más moderno y consistente con JS del frontend.',
+   trap:'PHP nunca va en el módulo de cálculo — no tiene las capacidades de tiempo real ni control de memoria. C++ no va en la interfaz web — no es un lenguaje web. JS obligatorio en frontend (A) y C++ para tiempo real crítico (B) son los dos primeros criterios claros.'},
+
+  {cat:'web',catL:'Web — TypeScript',seg:'3.5',
+   intro:'Un desarrollador migra un proyecto de JavaScript a TypeScript. Encuentra este código:',
+   code:`// Antes (JavaScript)
+function calcularDescuento(precio, porcentaje) {
+    return precio - (precio * porcentaje / 100);
+}
+calcularDescuento("cien", 10); // Retorna NaN silenciosamente`,
+   q:'¿Qué problema específico resuelve TypeScript en este caso y en qué momento lo detecta?',
+   opts:['TypeScript mejora el rendimiento porque el compilador optimiza operaciones aritméticas','TypeScript genera pruebas unitarias automáticas que verifican los tipos de los argumentos','TypeScript detecta en compilación que precio es string — el error nunca llega a runtime','TypeScript convierte strings a números automáticamente para evitar errores silenciosos como NaN'],
+   ans:2,
+   exp:'Con TypeScript: function calcularDescuento(precio: number, porcentaje: number). Al llamar calcularDescuento("cien", 10), el compilador tsc detecta que "cien" no es number y rechaza la compilación con un error de tipos. En JavaScript, esto pasa silenciosamente y retorna NaN que puede propagarse y causar comportamiento incorrecto en producción sin ningún mensaje de error.',
+   trap:'TypeScript no optimiza el rendimiento — se transpila a JS y el rendimiento es idéntico. TypeScript no genera pruebas automáticas. TypeScript no hace coerción implícita — al contrario, previene exactamente eso. TypeScript detecta el error en COMPILACIÓN, no en runtime.'},
+
+  {cat:'sel',catL:'Selección',seg:'3.5',
+   intro:'Una empresa de software evalúa plataformas para una herramienta interna de edición de archivos de configuración. Los usuarios son ingenieros que trabajan en Windows y macOS. La herramienta necesita acceder al sistema de archivos local, leer y escribir archivos de configuración en varios formatos, y proveer una UI con editor de código con resaltado de sintaxis.',
+   q:'¿Por qué Electron es técnicamente viable aquí mientras que una app web pura NO lo es?',
+   opts:['Electron provee acceso completo al filesystem vía Node.js — las apps web están sandboxeadas','Electron tiene mejor rendimiento que las apps web para el renderizado de código con sintaxis','Electron se distribuye sin instalación mientras una app web requiere un servidor propio siempre','Electron tiene soporte nativo para YAML, TOML y JSON sin necesidad de librerías adicionales'],
+   ans:0,
+   exp:'Acceso al sistema de archivos: una app web en el navegador tiene acceso muy limitado al filesystem por el modelo de seguridad del sandbox del navegador (solo mediante diálogos de archivo del usuario). Electron tiene acceso completo al filesystem via Node.js (fs module) — puede leer y escribir archivos directamente sin diálogos, recorrer directorios, monitorear cambios con watchers. Esto es esencial para una herramienta de edición de archivos de configuración.',
+   trap:'El rendimiento de renderizado de código es similar — ambos usan el mismo motor Chromium. Una app web sí puede distribuirse fácilmente via URL. Los formatos de configuración tienen librerías en ambos entornos. El factor determinante es el acceso al filesystem local, no el rendimiento o distribución.'},
+
+  {cat:'mob',catL:'Móvil',seg:'3.5',
+   intro:'Un banco lanza una app móvil con autenticación biométrica. El equipo de seguridad exige usar el Secure Enclave de Apple (iOS) y el TEE (Trusted Execution Environment) de Android para almacenar las claves criptográficas, usando las APIs más recientes de cada plataforma.',
+   q:'¿Por qué este requisito hace necesario el desarrollo nativo en lugar de React Native o Flutter?',
+   opts:['Las tiendas de apps no permiten React Native ni Flutter para aplicaciones bancarias críticas','React Native y Flutter no pueden incluir los certificados de seguridad que requieren las apps bancarias','Las APIs de biometría solo están disponibles en lenguajes que compilan a código máquina nativo','El Secure Enclave y el TEE tienen lag de soporte en multiplataforma — nativo lo garantiza inmediatamente'],
+   ans:3,
+   exp:'Las APIs más recientes del sistema operativo (especialmente las de seguridad de hardware como Secure Enclave y TEE) están disponibles inmediatamente en los SDKs nativos. Los frameworks multiplataforma dependen de que sus maintainers implementen wrappers para esas APIs, lo que puede tomar meses o no ocurrir para APIs muy específicas. Para requisitos de seguridad críticos que usan las APIs MÁS RECIENTES del hardware, nativo es la única garantía.',
+   trap:'Las tiendas de apps no restringen apps bancarias en React Native o Flutter — hay muchas apps bancarias con estos frameworks. La compilación a código máquina no es lo que da acceso al Secure Enclave — es el SDK de Apple, no el lenguaje de compilación. Los certificados de seguridad se pueden incluir en cualquier framework.'},
+];
+
+let activeCompara=0;
+let flashItems=[...FLASH],flashIdx=0,flashFlipped=false,flashFilter='all';
+let qIdx=0,qAnswers=Array(QUESTIONS.length).fill(null),qLocked=Array(QUESTIONS.length).fill(false),quizDone=false;
+
+function showPage(id){
+  ['compara','flash','quiz'].forEach(p=>document.getElementById('page-'+p).classList.toggle('hidden',p!==id));
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.classList.toggle('active',['compara','flash','quiz'][i]===id));
+  if(id==='compara')renderCompara();if(id==='flash')renderFlash();if(id==='quiz')renderQuiz();
+  window.scrollTo(0,0);
+}
+function renderCompara(){
+  const pg=document.getElementById('page-compara');
+  const c=COMPARA[activeCompara];
+  const tabs=COMPARA.map((cc,i)=>`<button class="ctab ${i===activeCompara?'active':''}" onclick="setCompara(${i})">${cc.label}</button>`).join('');
+  const ths=c.cols.map(h=>`<th>${h}</th>`).join('');
+  const rows=c.rows.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>`<td>${v}</td>`).join('')}</tr>`).join('');
+  pg.innerHTML=`<div class="comp-tabs">${tabs}</div><div class="comp-wrap"><table><thead><tr><th></th>${ths}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function setCompara(i){activeCompara=i;renderCompara();}
+function getFlashItems(){return flashFilter==='all'?FLASH:FLASH.filter(f=>f.cat===flashFilter);}
+function renderFlash(){
+  const pg=document.getElementById('page-flash');
+  flashItems=getFlashItems();if(flashIdx>=flashItems.length)flashIdx=0;
+  const item=flashItems[flashIdx];
+  const cats=[...new Set(FLASH.map(f=>f.cat))];
+  const filterBtns=['all',...cats].map(c=>`<button class="ff-btn ${flashFilter===c?'active':''}" onclick="setFlashFilter('${c}')">${c==='all'?'Todas':c}</button>`).join('');
+  const dots=flashItems.map((_,i)=>`<div class="fp-dot ${i<flashIdx?'done':i===flashIdx?'cur':''}"></div>`).join('');
+  const inner=flashFlipped
+    ?`<div class="flash-ans"><div class="ans-title">${item.a}</div><div class="ans-body">${item.body}</div><div class="ans-key">🔑 ${item.key}</div></div>`
+    :`<div><div class="flash-emoji">${item.emoji}</div><div class="flash-q">${item.q}</div></div>`;
+  pg.innerHTML=`<div class="flash-filter">${filterBtns}</div><div class="flash-wrap"><div class="flash-progress">${dots}</div><span class="flash-cat" style="background:${item.bg};color:${item.color}">${item.cat}</span><div class="flash-card" onclick="flipFlash()">${inner}</div><div class="flash-nav"><button class="btn btn-ghost" ${flashIdx===0?'disabled':''} onclick="moveFlash(-1)">←</button><span class="flash-ctr">${flashIdx+1} / ${flashItems.length}</span><button class="btn btn-primary" onclick="moveFlash(1)">${flashIdx===flashItems.length-1?'Reiniciar':'Siguiente →'}</button></div></div>`;
+}
+function flipFlash(){flashFlipped=!flashFlipped;renderFlash();}
+function moveFlash(d){flashFlipped=false;flashIdx=(flashIdx+d+flashItems.length)%flashItems.length;renderFlash();}
+function setFlashFilter(cat){flashFilter=cat;flashIdx=0;flashFlipped=false;renderFlash();}
+function renderQuiz(){
+  const pg=document.getElementById('page-quiz');
+  if(quizDone){pg.innerHTML=renderResults();return;}
+  const q=QUESTIONS[qIdx];
+  const prog=Math.round(qIdx/QUESTIONS.length*100);
+  const letters=['A','B','C','D'];
+  let qHtml='';
+  if(q.code){
+    qHtml=`<div class="qtxt">${q.intro}</div><div class="qcode">${q.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div><div class="qtxt">${q.q}</div>`;
+  } else {
+    qHtml=`<div class="qtxt">${q.intro || q.q}</div>`;
+  }
+  const opts=q.opts.map((o,i)=>{
+    let cls='opt';
+    if(qLocked[qIdx]){cls+=' locked';if(i===q.ans)cls+=' correct';else if(i===qAnswers[qIdx]&&i!==q.ans)cls+=' wrong';else cls+=' dimmed';}
+    return `<button class="${cls}" onclick="qAnswer(${i})"><span class="letter">${letters[i]}</span><span>${o}</span></button>`;
+  }).join('');
+  const fb=qLocked[qIdx]?`<div class="fb ${qAnswers[qIdx]===q.ans?'ok':'no'}"><div class="fb-tag">${qAnswers[qIdx]===q.ans?'✓ CORRECTO':'✗ INCORRECTO'}</div><div class="fb-text">${q.exp}</div><div class="fb-trap"><div class="trap-tag">⚠ TRAMPA</div><p>${q.trap}</p></div></div>`:'';
+  const segBadge=`<span class="seg-badge seg-${q.seg.replace('.','')}">${q.seg}</span>`;
+  const dots=QUESTIONS.map((_,i)=>{
+    const a=qAnswers[i];const ic=a===QUESTIONS[i].ans;const iw=a!==null&&!ic;
+    const bg=i===qIdx?'var(--teal)':ic?'var(--green)':iw?'var(--red)':'var(--card2)';
+    const bd=i===qIdx?'var(--teal)':ic?'var(--green2)':iw?'var(--red2)':'var(--border)';
+    const col=(i===qIdx||a!==null)?'#fff':'var(--text2)';
+    return `<button class="qdot" onclick="goQ(${i})" style="background:${bg};border-color:${bd};color:${col}">${i+1}</button>`;
+  }).join('');
+  pg.innerHTML=`<div class="pbar"><div class="label">${qIdx+1}/${QUESTIONS.length}</div><div class="track"><div class="fill" style="width:${prog}%"></div></div><div class="label">${prog}%</div></div>
+  <div class="qcard"><div class="qnum">PREGUNTA ${qIdx+1} ${segBadge}</div><span class="qtag ${q.cat}">${q.catL}</span>
+  ${qHtml}<div class="opts">${opts}</div>${fb}
+  ${qLocked[qIdx]?`<div class="nav">${qIdx>0?`<button class="btn btn-ghost" onclick="goQ(${qIdx-1})">← Anterior</button>`:''} ${qIdx<QUESTIONS.length-1?`<button class="btn btn-primary" onclick="goQ(${qIdx+1})">Siguiente →</button>`:`<button class="btn btn-primary" onclick="finishQuiz()">Ver resultados</button>`}</div>`:''}<div class="qdots">${dots}</div></div>`;
+}
+function qAnswer(i){if(qLocked[qIdx])return;qAnswers[qIdx]=i;qLocked[qIdx]=true;renderQuiz();}
+function goQ(i){qIdx=i;renderQuiz();window.scrollTo(0,0);}
+function finishQuiz(){quizDone=true;renderQuiz();}
+function renderResults(){
+  const total=QUESTIONS.length,correct=qAnswers.filter((a,i)=>a===QUESTIONS[i].ans).length,pct=Math.round(correct/total*100);
+  const cls=pct>=80?'score-ok':pct>=60?'score-mid':'score-bad';
+  const segs=['3.3','3.4','3.5'];
+  const segLabels={'3.3':'Entornos','3.4':'Gestión de Datos','3.5':'Plataformas'};
+  const segColors={'3.3':'#c2410c','3.4':'#1d4ed8','3.5':'#0f766e'};
+  const segBgs={'3.3':'rgba(234,88,12,.08)','3.4':'rgba(37,99,235,.08)','3.5':'rgba(13,148,136,.08)'};
+  const segCards=segs.map(seg=>{
+    const qs=QUESTIONS.filter(q=>q.seg===seg);
+    const c=qs.filter(q=>{const idx=QUESTIONS.indexOf(q);return qAnswers[idx]===q.ans;}).length;
+    return `<div class="seg-card" style="background:${segBgs[seg]};border:1px solid ${segColors[seg]}33"><div style="font-family:'DM Mono',monospace;font-size:10px;color:${segColors[seg]};margin-bottom:4px">${seg} ${segLabels[seg].toUpperCase()}</div><div style="font-family:'DM Mono',monospace;font-size:28px;font-weight:700;color:var(--white)">${c}/${qs.length}</div></div>`;
+  }).join('');
+  const cats=[
+    {id:'git',label:'Git',color:'#c2410c'},{id:'test',label:'Testing y Linters',color:'#16a34a'},
+    {id:'cicd',label:'CI/CD',color:'#0d9488'},{id:'docker',label:'Docker',color:'#db2777'},
+    {id:'build',label:'Build Tools',color:'#7c3aed'},{id:'sql',label:'SQL',color:'#2563eb'},
+    {id:'acid',label:'ACID y Transacciones',color:'#7c3aed'},{id:'nosql',label:'NoSQL',color:'#0d9488'},
+    {id:'dist',label:'Fragmentación/Replicación',color:'#db2777'},{id:'tipos',label:'Tipos de datos',color:'#ea580c'},
+    {id:'web',label:'Plataforma Web',color:'#2563eb'},{id:'mob',label:'Plataforma Móvil',color:'#0d9488'},
+    {id:'emb',label:'Embebido',color:'#ea580c'},{id:'sel',label:'Selección de plataforma',color:'#db2777'},
+  ];
+  const catRows=cats.map(cat=>{
+    const qs=QUESTIONS.filter(q=>q.cat===cat.id);if(!qs.length)return'';
+    const c=qs.filter(q=>{const idx=QUESTIONS.indexOf(q);return qAnswers[idx]===q.ans;}).length;
+    const p=Math.round(c/qs.length*100);
+    return `<div class="cat-row"><span class="cat-name">${cat.label}</span><div class="cat-track"><div class="cat-fill" style="width:${p}%;background:${cat.color}"></div></div><span class="cat-val">${c}/${qs.length}</span></div>`;
+  }).join('');
+  return `<div class="results"><h2>Resultado final</h2><div class="score-big ${cls}">${correct}/${total}</div><div style="font-size:14px;color:var(--text2);margin-bottom:16px">${pct}% · Repaso 3.3 + 3.4 + 3.5</div><div class="seg-grid">${segCards}</div><div class="cat-scores">${catRows}</div><div class="nav" style="margin-top:20px"><button class="btn btn-primary" onclick="resetQuiz()">🔄 Reintentar</button><button class="btn btn-ghost" onclick="showPage('compara')">⚖️ Comparativas</button><button class="btn btn-ghost" onclick="showPage('flash')">🃏 Flashcards</button></div></div>`;
+}
+function resetQuiz(){qIdx=0;qAnswers=Array(QUESTIONS.length).fill(null);qLocked=Array(QUESTIONS.length).fill(false);quizDone=false;renderQuiz();}
+function toggleTheme(){
+  const dark=document.body.classList.toggle('dark');
+  document.getElementById('theme-btn').textContent=dark?'☀️':'🌙';
+  localStorage.setItem('theme',dark?'dark':'light');
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');document.getElementById('theme-btn').textContent='☀️';}
+  renderCompara();
+});
+</script>
+</body>
+</html>
